@@ -1,5 +1,11 @@
 version: 0.2
+
 phases:
+  install:
+    commands:
+      - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      - chmod +x kubectl
+      - mv kubectl /usr/local/bin/
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -16,3 +22,4 @@ phases:
       - echo Updating Kubernetes deployment...
       - aws eks update-kubeconfig --region ap-south-1 --name brain-tasks-cluster
       - kubectl set image deployment/brain-tasks brain-tasks=867344456453.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks:latest --record
+
