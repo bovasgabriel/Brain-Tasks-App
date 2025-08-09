@@ -32,4 +32,3 @@ phases:
       - kubectl get nodes
       - echo Updating deployment image...
       - kubectl set image deployment/brain-tasks brain-tasks=867344456453.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks:latest
-
