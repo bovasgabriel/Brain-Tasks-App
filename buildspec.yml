@@ -17,9 +17,11 @@ phases:
       - docker tag brain-tasks:latest 867344456453.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks:latest
   post_build:
     commands:
-      - echo Pushing Docker image to ECR...
-      - docker push 867344456453.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks:latest
-      - echo Updating Kubernetes deployment...
+      - echo Updating Kubernetes kubeconfig...
       - aws eks update-kubeconfig --region ap-south-1 --name brain-tasks-cluster
-      - kubectl set image deployment/brain-tasks brain-tasks=867344456453.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks:latest --record
-
+      - echo Showing kubeconfig content:
+      - kubectl config view
+      - echo Checking cluster nodes:
+      - kubectl get nodes
+      - echo Updating deployment image...
+      - kubectl set image deployment/brain-tasks brain-tasks=867344456453.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks:latest
