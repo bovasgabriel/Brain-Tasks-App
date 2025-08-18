@@ -1,0 +1,8 @@
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::EKS::Service
+      Properties:
+        Name: brain-tasks-service
+        ClusterName: brain-tasks-cluster
+        Namespace: default

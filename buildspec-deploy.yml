@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 867344456453.dkr.ecr.ap-south-1.amazonaws.com
+  build:
+    commands:
+      - echo Updating Kubernetes deployment...
+      - kubectl set image deployment/brain-tasks-deployment brain-tasks-app=867344456453.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
+  post_build:
+    commands:
+      - echo Deployment to EKS completed.
+
